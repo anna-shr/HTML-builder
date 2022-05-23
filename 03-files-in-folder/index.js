@@ -2,19 +2,27 @@ const fs = require('fs');
 const path = require('path');
 
 
-function getFiles() {
-    fs.readdir(path.join(path.resolve(__dirname), '/secret-folder')), (err, files) => {
+
+
+function copy() {
+    fs.readdir(path.join(path.resolve(__dirname), '/secret-folder'), (err, files) => {
+        //        console.log(files);
         files.forEach(file => {
-            fs.stat(file, (err, stats) => {
-                fs.stat(file, function (err, stats) {
+      //      console.log(file);
+
+            fs.stat(path.join(path.resolve(__dirname), '/secret-folder', file), (err, stats) => {
+                if (err) {
+                    throw err;
+                }
+               
                     if (stats.isFile()) {
-                        console.log('name ' + file, "размер" + stats.size, "Расширение" + path.extname(file));
+                        console.log(path.parse(file).name, '-', path.extname(file), '-', stats.size, 'kb');
                     } else {
                         return false;
                     }
-                })
+                
             });
         });
-    }
+    })
 }
-getFiles();
+copy();
