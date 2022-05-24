@@ -21,13 +21,14 @@ rl.prompt();
 rl.on('line', (input) => {
   if (input === 'exit') {
     rl.close();
-  }
-
+  } else {
   fs.appendFile(path.resolve(__dirname, 'text.txt'), input + "\n", function (err) {
     if (err) {
       return console.log(err);
     }
+  
   });
+}
   /*rl.close();*/
 });
 
